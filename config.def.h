@@ -92,11 +92,11 @@ static const Layout layouts[] = {
 
 /* key definitions */
 #define MODKEY Mod4Mask
-#define TAGKEYS(CHAIN,KEY,TAG) \
-	{ MODKEY,                       CHAIN,    KEY,      view,           {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask,           CHAIN,    KEY,      toggleview,     {.ui = 1 << TAG} }, \
-	{ MODKEY|ShiftMask,             CHAIN,    KEY,      tag,            {.ui = 1 << TAG} }, \
-	{ MODKEY|ControlMask|ShiftMask, CHAIN,    KEY,      toggletag,      {.ui = 1 << TAG} },
+#define TAGKEYS(KEY,TAG) \
+	{ MODKEY,                       KEY,      view,           {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask,           KEY,      toggleview,     {.ui = 1 << TAG} }, \
+	{ MODKEY|ShiftMask,             KEY,      tag,            {.ui = 1 << TAG} }, \
+	{ MODKEY|ControlMask|ShiftMask, KEY,      toggletag,      {.ui = 1 << TAG} },
 #define CMD(cmd) { .v = (const char*[]){ "/bin/sh", "-c", cmd, NULL } }
 
 /* helper for spawning shell commands in the pre dwm-5.0 fashion */
@@ -117,70 +117,59 @@ static const char *tabtermcmd[]  = { "tabbed", "-r", "2", "st", "-w", "''", NULL
 
 
 static Key keys[] = {
-	/* modifier             chain key  key        function        argument */
-	{ MODKEY|ShiftMask,     -1,        XK_Return, spawn,          {.v = dmenucmd } },
-	/* { MODKEY,               -1,        XK_Return, spawn,          {.v = termcmd } }, */
-	{ Mod1Mask,             -1,        XK_Return, spawn,          {.v = tabtermcmd } },
-	{ MODKEY,               -1,        XK_b,      togglebar,      {0} },
-	{ MODKEY|ShiftMask,     -1,        XK_j,      rotatestack,    {.i = +1 } },
-	{ MODKEY|ShiftMask,     -1,        XK_k,      rotatestack,    {.i = -1 } },
-	{ MODKEY,               -1,        XK_j,      focusstack,     {.i = +1 } },
-	{ MODKEY,               -1,        XK_k,      focusstack,     {.i = -1 } },
-	{ MODKEY,               -1,        XK_i,      incnmaster,     {.i = +1 } },
-	{ MODKEY,               -1,        XK_d,      incnmaster,     {.i = -1 } },
-	{ MODKEY,               -1,        XK_h,      setmfact,       {.f = -0.05} },
-	{ MODKEY,               -1,        XK_l,      setmfact,       {.f = +0.05} },
-	{ MODKEY|ControlMask,   -1,        XK_Return, zoom,           {0} },
-	{ MODKEY,               -1,        XK_Tab,    view,           {0} },
-	{ MODKEY,               -1,        XK_q,      killclient,     {0} },
+	/* modifier             key        function        argument */
+	{ MODKEY|ShiftMask,     XK_Return, spawn,          {.v = dmenucmd } },
+	/* { MODKEY,               XK_Return, spawn,          {.v = termcmd } }, */
+	{ Mod1Mask,             XK_Return, spawn,          {.v = tabtermcmd } },
+	{ MODKEY,               XK_b,      togglebar,      {0} },
+	{ MODKEY|ShiftMask,     XK_j,      rotatestack,    {.i = +1 } },
+	{ MODKEY|ShiftMask,     XK_k,      rotatestack,    {.i = -1 } },
+	{ MODKEY,               XK_j,      focusstack,     {.i = +1 } },
+	{ MODKEY,               XK_k,      focusstack,     {.i = -1 } },
+	{ MODKEY,               XK_i,      incnmaster,     {.i = +1 } },
+	{ MODKEY,               XK_d,      incnmaster,     {.i = -1 } },
+	{ MODKEY,               XK_h,      setmfact,       {.f = -0.05} },
+	{ MODKEY,               XK_l,      setmfact,       {.f = +0.05} },
+	{ MODKEY|ControlMask,   XK_Return, zoom,           {0} },
+	{ MODKEY,               XK_Tab,    view,           {0} },
+	{ MODKEY,               XK_q,      killclient,     {0} },
 
     /* Layout manipulation */
-	/* { MODKEY,               -1,        XK_Tab,    cyclelayout,    {.i = -1 } }, */
-	{ MODKEY|ShiftMask,     -1,        XK_Tab,    cyclelayout,    {.i = +1 } },
-	{ MODKEY,               -1,        XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,     -1,        XK_space,  togglefloating, {0} },
+	/* { MODKEY,            XK_Tab,    cyclelayout,    {.i = -1 } }, */
+	{ MODKEY|ShiftMask,     XK_Tab,    cyclelayout,    {.i = +1 } },
+	{ MODKEY,               XK_space,  setlayout,      {0} },
+	{ MODKEY|ShiftMask,     XK_space,  togglefloating, {0} },
 
     /* Switch to specific layouts */
-	{ MODKEY,               -1,        XK_t,      setlayout,      {.v = &layouts[0]} },
-	{ MODKEY,               -1,        XK_f,      setlayout,      {.v = &layouts[1]} },
-	{ MODKEY,               -1,        XK_m,      setlayout,      {.v = &layouts[2]} },
-	{ MODKEY,               -1,        XK_g,      setlayout,      {.v = &layouts[3]} },
+	{ MODKEY,               XK_t,      setlayout,      {.v = &layouts[0]} },
+	{ MODKEY,               XK_f,      setlayout,      {.v = &layouts[1]} },
+	{ MODKEY,               XK_m,      setlayout,      {.v = &layouts[2]} },
+	{ MODKEY,               XK_g,      setlayout,      {.v = &layouts[3]} },
 
-	{ MODKEY,               -1,        XK_0,      view,           {.ui = ~0 } },
-	{ MODKEY|ShiftMask,     -1,        XK_0,      tag,            {.ui = ~0 } },
+	{ MODKEY,               XK_0,      view,           {.ui = ~0 } },
+	{ MODKEY|ShiftMask,     XK_0,      tag,            {.ui = ~0 } },
 
     /* Switching between monitors */
-	{ MODKEY,               -1,        XK_comma,  focusmon,       {.i = -1 } },
-	{ MODKEY,               -1,        XK_period, focusmon,       {.i = +1 } },
-	{ MODKEY|ShiftMask,     -1,        XK_comma,  tagmon,         {.i = -1 } },
-	{ MODKEY|ShiftMask,     -1,        XK_period, tagmon,         {.i = +1 } },
+	{ MODKEY,               XK_comma,  focusmon,       {.i = -1 } },
+	{ MODKEY,               XK_period, focusmon,       {.i = +1 } },
+	{ MODKEY|ShiftMask,     XK_comma,  tagmon,         {.i = -1 } },
+	{ MODKEY|ShiftMask,     XK_period, tagmon,         {.i = +1 } },
 
 	 /* Toggle scratchpads */
-	{ MODKEY,            	  -1,		     XK_y,  	  togglescratch,  {.ui = 0 } },
-	{ MODKEY,            	  -1,		     XK_u,	    togglescratch,  {.ui = 1 } },
-	{ MODKEY,            	  -1,		     XK_x,	    togglescratch,  {.ui = 2 } },
-	
-    /* Dmenu scripts launched with emacs-style keychords SUPER + p followed by "key" */
-	/* { MODKEY,               XK_p,      XK_e,      spawn,          CMD("~/dmscripts/dmconf") }, */
-	/* { MODKEY,               XK_p,      XK_i,      spawn,          CMD("~/dmscripts/dmscrot") }, */
-	/* { MODKEY,               XK_p,      XK_k,      spawn,          CMD("~/dmscripts/dmkill") }, */
-	/* { MODKEY,               XK_p,      XK_l,      spawn,          CMD("~/dmscripts/dmlogout") }, */
-	/* { MODKEY,               XK_p,      XK_m,      spawn,          CMD("~/dmscripts/dman") }, */
-	/* { MODKEY,               XK_p,      XK_r,      spawn,          CMD("~/dmscripts/dmred") }, */
-	/* { MODKEY,               XK_p,      XK_s,      spawn,          CMD("~/dmscripts/dmsearch") }, */
-	/* { MODKEY,               XK_p,      XK_p,      spawn,          CMD("passmenu") }, */
-    
-	TAGKEYS(                -1,        XK_1,                      0)
-	TAGKEYS(                -1,        XK_2,                      1)
-	TAGKEYS(                -1,        XK_3,                      2)
-	TAGKEYS(                -1,        XK_4,                      3)
-	TAGKEYS(                -1,        XK_5,                      4)
-	TAGKEYS(                -1,        XK_6,                      5)
-	TAGKEYS(                -1,        XK_7,                      6)
-	TAGKEYS(                -1,        XK_8,                      7)
-	TAGKEYS(                -1,        XK_9,                      8)
-	{ MODKEY|ShiftMask,     -1,        XK_q,	    quit,           {0} },
-  { MODKEY|ShiftMask,     -1,        XK_r,      quit,           {1} }, 
+	{ MODKEY,            	  XK_y,  	  togglescratch,  {.ui = 0 } },
+	{ MODKEY,            	  XK_u,	    togglescratch,  {.ui = 1 } },
+	{ MODKEY,            	  XK_x,	    togglescratch,  {.ui = 2 } },
+	TAGKEYS(                XK_1,                      0)
+	TAGKEYS(                XK_2,                      1)
+	TAGKEYS(                XK_3,                      2)
+	TAGKEYS(                XK_4,                      3)
+	TAGKEYS(                XK_5,                      4)
+	TAGKEYS(                XK_6,                      5)
+	TAGKEYS(                XK_7,                      6)
+	TAGKEYS(                XK_8,                      7)
+	TAGKEYS(                XK_9,                      8)
+	{ MODKEY|ShiftMask,     XK_q,	    quit,           {0} },
+  { MODKEY|ShiftMask,     XK_r,     quit,           {1} }, 
 };
 
 /* button definitions */

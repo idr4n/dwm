@@ -118,7 +118,7 @@ static const char *tabtermcmd[]  = { "tabbed", "-r", "2", "st", "-w", "''", NULL
 
 static Key keys[] = {
 	/* modifier             key        function        argument */
-	{ MODKEY|ShiftMask,     XK_Return, spawn,          {.v = dmenucmd } },
+	{ MODKEY|ShiftMask,     XK_d,      spawn,          {.v = dmenucmd } },
 	/* { MODKEY,               XK_Return, spawn,          {.v = termcmd } }, */
 	{ Mod1Mask,             XK_Return, spawn,          {.v = tabtermcmd } },
 	{ MODKEY,               XK_b,      togglebar,      {0} },
@@ -137,8 +137,8 @@ static Key keys[] = {
     /* Layout manipulation */
 	/* { MODKEY,            XK_Tab,    cyclelayout,    {.i = -1 } }, */
 	{ MODKEY|ShiftMask,     XK_Tab,    cyclelayout,    {.i = +1 } },
-	{ MODKEY,               XK_space,  setlayout,      {0} },
-	{ MODKEY|ShiftMask,     XK_space,  togglefloating, {0} },
+	{ MODKEY|ShiftMask,     XK_l,      setlayout,      {0} },
+	{ MODKEY|ShiftMask,     XK_f,      togglefloating, {0} },
 
     /* Switch to specific layouts */
 	{ MODKEY,               XK_t,      setlayout,      {.v = &layouts[0]} },
